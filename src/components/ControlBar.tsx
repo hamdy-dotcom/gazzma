@@ -6,7 +6,7 @@ import { useCartStore } from '@/store/cart'
 import { rigState } from '@/components/grid/gridState'
 import { CONFIG } from '@/components/grid/gridConfig'
 
-const spring = { type: 'spring', stiffness: 500, damping: 30, mass: 1 }
+const spring = { type: 'spring' as const, stiffness: 500, damping: 30, mass: 1 }
 
 const ALL_BRANDS = ['Nike', 'Adidas', 'New Balance', 'Jordan', 'Puma', 'Vans', 'Converse', 'Reebok']
 const TOP_BRANDS = ['Nike', 'Adidas', 'New Balance', 'Jordan']
