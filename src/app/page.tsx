@@ -9,7 +9,7 @@ import { ProductPanel } from '@/components/ProductPanel'
 import { CartDrawer } from '@/components/CartDrawer'
 import { rigState } from "@/components/grid/gridState"
 
-const ShoeGrid = dynamic(() => import('@/components/grid/ShoeGrid'), { ssr: false })
+const ShoeGrid = dynamic(() => import('@/components/grid/ShoeGrid'), { ssr: false }) as any
 
 export default function HomePage() {
   useEffect(() => {
