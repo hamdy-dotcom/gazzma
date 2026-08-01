@@ -69,9 +69,11 @@ export function Rig({ gridW, gridH }) {
                 rigState.activeId = null;
             }
             const { x: bx, y: by, visibleHeight } = getBounds();
+            const isMobile = window.innerWidth < 768;
             const sensitivity =
                 (visibleHeight / window.innerHeight) *
-                CONFIG.dragSpeed;
+                CONFIG.dragSpeed *
+                (isMobile ? 8 : 1);
             let rawTargetX = initialRigX + dx * sensitivity;
             let rawTargetY = initialRigY - dy * sensitivity;
             // Apply resistance when dragging past bounds
