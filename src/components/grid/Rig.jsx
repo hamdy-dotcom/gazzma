@@ -43,8 +43,8 @@ export function Rig({ gridW, gridH }) {
         let maxDragDistance = 0; // Track max distance for click detection
         const onDown = (e) => {
             isDown = true;
-            startX = e.clientX;
-            startY = e.clientY;
+            startX = e.touches ? e.touches[0].clientX : e.clientX;
+            startY = e.touches ? e.touches[0].clientY : e.clientY;
             initialRigX = rigState.target.x;
             initialRigY = rigState.target.y;
             maxDragDistance = 0;
@@ -53,8 +53,10 @@ export function Rig({ gridW, gridH }) {
         };
         const onMove = (e) => {
             if (!isDown) return;
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const dx = clientX - startX;
+            const dy = clientY - startY;
             const distance = Math.sqrt(dx * dx + dy * dy);
             maxDragDistance = Math.max(maxDragDistance, distance);
             // Use higher threshold for mobile (touch is less precise)
