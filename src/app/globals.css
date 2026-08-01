@@ -1,0 +1,96 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-cairo), 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #f5f0eb;
+}
+
+/* Only checkout/admin pages need scroll */
+.scrollable {
+  overflow: auto;
+  height: 100vh;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+
+/* Checkout responsive */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  padding: 16px;
+  flex: 1;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+}
+
+/* Product panel responsive */
+@media (max-width: 768px) {
+  [data-panel="product"] {
+    right: 0 !important;
+    left: 0 !important;
+    bottom: 70px !important;
+    width: 100% !important;
+    border-radius: 20px 20px 0 0 !important;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-panel="product"] {
+    top: auto !important;
+    bottom: 60px !important;
+    max-height: 45vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Control bar mobile */
+@media (max-width: 600px) {
+  .brand-bar {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    border-radius: 20px !important;
+    padding: 6px 8px !important;
+    gap: 4px !important;
+  }
+  .price-bar {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .control-bar {
+    bottom: 10px !important;
+  }
+}
+
+/* Admin page needs scroll */
+html:has([data-page="admin"]),
+body:has([data-page="admin"]) {
+  overflow: auto !important;
+  height: auto !important;
+}
