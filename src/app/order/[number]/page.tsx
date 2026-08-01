@@ -1,12 +1,13 @@
 import { createServiceClient } from '@/lib/supabase'
 import Link from 'next/link'
 
-export default async function OrderPage({ params }: { params: { number: string } }) {
+export default async function OrderPage({ params }: { params: Promise<{ number: string }> }) {
   const supabase = createServiceClient()
+  const { number } = await params
   const { data: order } = await supabase
     .from('orders')
     .select('*')
-    .eq('order_number', params.number)
+    .eq('order_number', number)
     .single()
 
   if (!order) {
