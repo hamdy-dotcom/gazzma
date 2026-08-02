@@ -119,7 +119,7 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
             </div>
           )}
 
-          {(product as any).model_url && (
+          {product.model_url && (
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => setShow3D(true)}
@@ -157,9 +157,9 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
       )}
     </AnimatePresence>
 
-    {show3D && product && (product as any).model_url && (
+    {show3D && product && product.model_url && (
       <ModelViewer
-        modelUrl={(product as any).model_url}
+        modelUrl={product.model_url}
         productName={product.title}
         onClose={() => setShow3D(false)}
       />

@@ -11,6 +11,7 @@ export interface Product {
   in_stock: boolean
   featured: boolean
   created_at: string
+  model_url?: string | null
 }
 
 export interface CartItem {
