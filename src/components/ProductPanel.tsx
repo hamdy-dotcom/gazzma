@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Product } from '@/types'
 import { useCartStore } from '@/store/cart'
+import { ModelViewer } from '@/components/ModelViewer'
 
 interface ProductPanelProps {
   product: Product | null
@@ -13,9 +14,10 @@ interface ProductPanelProps {
 export function ProductPanel({ product, onClose }: ProductPanelProps) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [added, setAdded] = useState(false)
+  const [show3D, setShow3D] = useState(false)
   const addItem = useCartStore((s) => s.addItem)
 
-  useEffect(() => { setSelectedSize(null); setAdded(false) }, [product?.id])
+  useEffect(() => { setSelectedSize(null); setAdded(false); setShow3D(false) }, [product?.id])
 
   const savingsPct = product
     ? Math.round(((product.original_price_egp - product.outlet_price_egp) / product.original_price_egp) * 100)
@@ -29,7 +31,7 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
   }
 
   return (
-    <AnimatePresence>
+    <>
       {product && (
         <motion.div
           initial={{ opacity: 0, x: 40 }}
@@ -117,6 +119,21 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
             </div>
           )}
 
+          {(product as any).model_url && (
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setShow3D(true)}
+              style={{
+                width: '100%', padding: '11px', borderRadius: 14, border: '1px solid #ddd',
+                background: '#fff', color: '#333', fontSize: 14, fontWeight: 700,
+                cursor: 'pointer', fontFamily: 'inherit', marginBottom: 8,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              }}
+            >
+              🔮 عرض ثلاثي الأبعاد
+            </motion.button>
+          )}
+
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={handleAdd}
@@ -139,5 +156,14 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
         </motion.div>
       )}
     </AnimatePresence>
+
+    {show3D && product && (product as any).model_url && (
+      <ModelViewer
+        modelUrl={(product as any).model_url}
+        productName={product.title}
+        onClose={() => setShow3D(false)}
+      />
+    )}
+  </>
   )
 }
