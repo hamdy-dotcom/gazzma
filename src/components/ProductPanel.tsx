@@ -32,6 +32,7 @@ export function ProductPanel({ product, onClose }: ProductPanelProps) {
 
   return (
     <>
+      <AnimatePresence>
       {product && (
         <motion.div
           initial={{ opacity: 0, x: 40 }}
